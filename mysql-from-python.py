@@ -13,8 +13,10 @@ connection = pymysql.connect(host = 'localhost',
                             db = 'Chinook')
 try:
     with connection.cursor() as cursor:
-        cursor.execute("UPDATE Friends SET age=%s WHERE name=%s;",
-                        (23, 'Bob'))
+        rows = [(27, 'Bob'),
+                (33, 'Jim'),
+                (25, 'Fred')]
+        cursor.executemany("UPDATE Friends SET age=%s WHERE name=%s;", rows)
         connection.commit()
 finally:
     # Close the connection, regardless of whether the code above was successful
