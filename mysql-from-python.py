@@ -13,10 +13,7 @@ connection = pymysql.connect(host = 'localhost',
                             db = 'Chinook')
 try:
     with connection.cursor() as cursor:
-        rows = [('Julie', 35, "1980-04-22 22:02:30"),
-                ('Katy', 44, "1972-03-27 10:11:11"),
-                ('Leanne', 87, "1938-11-15 05:03:17")]
-        cursor.executemany("INSERT INTO Friends VALUES (%s, %s, %s);", rows)
+        rows = cursor.execute("DELETE FROM Friends WHERE name=%s", 'Julie')
         connection.commit()
 finally:
     # Close the connection, regardless of whether the code above was successful
